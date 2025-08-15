@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternal Love | A Celebration of Hearts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./download (9).jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fff5f5;
+            overflow-x: hidden;
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .love-letter {
+            background: linear-gradient(135deg, #fff9f9 0%, #ffebeb 100%);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+        
+        .love-letter:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: rotate(3deg);
+            transition: all 0.3s ease;
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .polaroid:nth-child(even) {
+            transform: rotate(-3deg);
+        }
+        
+        .polaroid:nth-child(even):hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .gallery-item {
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .rose-petal {
+            position: absolute;
+            background-color: #ff6b8b;
+            border-radius: 150% 0 150% 0;
+            animation: falling linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes falling {
+            0% {
+                top: -10%;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 100%;
+                transform: rotate(360deg);
+            }
+        }
+        
+        .countdown-number {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="text-pink-900">
+    <!-- Floating Hearts Background -->
+    <div id="hearts-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+    
+    <!-- Navigation -->
+    <nav class="bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <i class="fas fa-heart text-pink-500 text-3xl mr-2"></i>
+                    <span class="text-xl font-bold font-serif text-pink-600">Eternal Love</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-pink-50 hover:text-pink-600 transition duration-300">Home</a>
+                        <a href="#story" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-pink-50 hover:text-pink-600 transition duration-300">Our Story</a>
+                        <a href="#gallery" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-pink-50 hover:text-pink-600 transition duration-300">Gallery</a>
+                        <a href="#memories" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-pink-50 hover:text-pink-600 transition duration-300">Memories</a>
+                        <a href="#contact" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-pink-50 hover:text-pink-600 transition duration-300">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-pink-600 hover:text-pink-800 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-lg mx-4 mt-2 py-2">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-pink-50 hover:text-pink-600">Home</a>
+                <a href="#story" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-pink-50 hover:text-pink-600">Our Story</a>
+                <a href="#gallery" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-pink-50 hover:text-pink-600">Gallery</a>
+                <a href="#memories" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-pink-50 hover:text-pink-600">Memories</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-pink-50 hover:text-pink-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 z-0">
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-pink-300 filter blur-3xl"></div>
+            <div class="absolute top-2/3 right-1/4 w-40 h-40 rounded-full bg-red-300 filter blur-3xl"></div>
+        </div>
+        
+        <div class="relative z-10">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif mb-6 leading-tight">
+                        <span class="text-pink-600">Forever</span> 
+                        <span class="text-red-400">Together</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-pink-800 mb-8 max-w-lg">
+                        A journey of love that grows stronger with each passing day. Celebrating the beautiful connection that binds two hearts as one.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-medium transition duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-heart mr-2"></i> Share Your Love
+                        </button>
+                        <button class="border-2 border-pink-600 text-pink-600 hover:bg-pink-50 px-6 py-3 rounded-full font-medium transition duration-300 transform hover:scale-105">
+                            <i class="fas fa-book-open mr-2"></i> Read Our Story
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative w-full max-w-md mx-auto">
+                        <div class="absolute -top-6 -left-6 w-full h-full border-4 border-pink-300 rounded-lg z-0"></div>
+                        <div class="absolute -bottom-6 -right-6 w-full h-full border-4 border-red-300 rounded-lg z-0"></div>
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" 
+                             alt="Couple in love" 
+                             class="relative z-10 w-full h-auto rounded-lg shadow-2xl object-cover">
+                        <div class="absolute -bottom-8 -right-8 bg-white p-4 rounded-full shadow-xl z-20">
+                            <i class="fas fa-heart text-4xl text-red-500 heart-beat"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="py-16 bg-gradient-to-r from-pink-100 to-red-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold font-serif mb-2 text-pink-700">Our Next Anniversary</h2>
+            <p class="text-lg text-pink-600 mb-12">Counting down to another year of love</p>
+            
+            <div class="flex justify-center gap-6 md:gap-12 flex-wrap">
+                <div class="bg-white bg-opacity-80 rounded-xl p-6 shadow-lg">
+                    <div class="text-5xl font-bold text-pink-600 countdown-number" id="days">00</div>
+                    <div class="text-sm uppercase text-pink-500 mt-2">Days</div>
+                </div>
+                <div class="bg-white bg-opacity-80 rounded-xl p-6 shadow-lg">
+                    <div class="text-5xl font-bold text-pink-600 countdown-number" id="hours">00</div>
+                    <div class="text-sm uppercase text-pink-500 mt-2">Hours</div>
+                </div>
+                <div class="bg-white bg-opacity-80 rounded-xl p-6 shadow-lg">
+                    <div class="text-5xl font-bold text-pink-600 countdown-number" id="minutes">00</div>
+                    <div class="text-sm uppercase text-pink-500 mt-2">Minutes</div>
+                </div>
+                <div class="bg-white bg-opacity-80 rounded-xl p-6 shadow-lg">
+                    <div class="text-5xl font-bold text-pink-600 countdown-number" id="seconds">00</div>
+                    <div class="text-sm uppercase text-pink-500 mt-2">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold font-serif text-pink-700 mb-4">Our Love Story</h2>
+            <div class="w-24 h-1 bg-pink-400 mx-auto"></div>
+        </div>
+        
+        <div class="relative">
+            <!-- Timeline line -->
+            <div class="hidden lg:block absolute left-1/2 h-full w-1 bg-pink-200 transform -translate-x-1/2"></div>
+            
+            <!-- Timeline items -->
+            <div class="space-y-16">
+                <!-- Item 1 -->
+                <div class="relative lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <div class="lg:text-right mb-8 lg:mb-0">
+                        <div class="lg:mr-12">
+                            <div class="text-pink-500 font-medium mb-2">February 2025</div>
+                            <h3 class="text-2xl font-bold font-serif text-pink-700 mb-4">First Meeting</h3>
+                            <p class="text-pink-800">
+                                We met at a coffee shop by chance. A spilled latte turned into a three-hour conversation that neither of us wanted to end.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 w-16 h-16 rounded-full bg-pink-100 border-4 border-pink-300 flex items-center justify-center z-10 mx-auto mb-6 lg:mb-0">
+                            <i class="fas fa-coffee text-2xl text-pink-600"></i>
+                        </div>
+                        <div class="lg:ml-12">
+                            <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Coffee shop" 
+                                 class="w-full h-64 object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="relative lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <div class="lg:order-last lg:ml-12 mb-8 lg:mb-0">
+                        <div class="text-pink-500 font-medium mb-2">April 2025</div>
+                        <h3 class="text-2xl font-bold font-serif text-pink-700 mb-4">First Date</h3>
+                        <p class="text-pink-800">
+                            Our official first date was at the winter festival. We shared hot chocolate, rode the Ferris wheel, and had our first kiss under the mistletoe.
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <div class="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 w-16 h-16 rounded-full bg-pink-100 border-4 border-pink-300 flex items-center justify-center z-10 mx-auto mb-6 lg:mb-0">
+                            <i class="fas fa-snowflake text-2xl text-pink-600"></i>
+                        </div>
+                        <div class="lg:mr-12">
+                            <img src="./Digital Background Snowman Outdoor Christmas - Etsy.jpeg" 
+                                 alt="Winter festival" 
+                                 class="w-full h-64 object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="relative lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <div class="lg:text-right mb-8 lg:mb-0">
+                        <div class="lg:mr-12">
+                            <div class="text-pink-500 font-medium mb-2">June 2025</div>
+                            <h3 class="text-2xl font-bold font-serif text-pink-700 mb-4">Moving In Together</h3>
+                            <p class="text-pink-800">
+                                After two years of dating, we decided to take the next step. Our little apartment became our sanctuary, filled with love and laughter.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 w-16 h-16 rounded-full bg-pink-100 border-4 border-pink-300 flex items-center justify-center z-10 mx-auto mb-6 lg:mb-0">
+                            <i class="fas fa-home text-2xl text-pink-600"></i>
+                        </div>
+                        <div class="lg:ml-12">
+                            <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Apartment" 
+                                 class="w-full h-64 object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="relative lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <div class="lg:order-last lg:ml-12 mb-8 lg:mb-0">
+                        <div class="text-pink-500 font-medium mb-2">June 2025</div>
+                        <h3 class="text-2xl font-bold font-serif text-pink-700 mb-4">The Proposal</h3>
+                        <p class="text-pink-800">
+                            On a secluded beach at sunset, surrounded by candles and roses, I got down on one knee and asked the most important question of my life.
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <div class="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 w-16 h-16 rounded-full bg-pink-100 border-4 border-pink-300 flex items-center justify-center z-10 mx-auto mb-6 lg:mb-0">
+                            <i class="fas fa-ring text-2xl text-pink-600"></i>
+                        </div>
+                        <div class="lg:mr-12">
+                            <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Proposal" 
+                                 class="w-full h-64 object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gradient-to-b from-pink-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-serif text-pink-700 mb-4">Our Gallery</h2>
+                <p class="text-lg text-pink-600">Moments captured in time, memories that will last forever</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Photo 1 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Couple walking" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-heart text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Our First Trip</h3>
+                            <p class="text-sm">Japan, 2026</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 2 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Couple laughing" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-laugh text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Laughter & Joy</h3>
+                            <p class="text-sm">Summer 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 3 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="./download (10).jpeg" 
+                         alt="Couple at beach" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-umbrella-beach text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Beach Vacation</h3>
+                            <p class="text-sm">Maldives, 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 4 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Couple cooking" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-utensils text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Cooking Together</h3>
+                            <p class="text-sm">Home, 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 5 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Couple hugging" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-heartbeat text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Embracing Love</h3>
+                            <p class="text-sm">Central Park, 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 6 -->
+                <div class="gallery-item relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Couple walking" 
+                         class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="text-center text-white p-4">
+                            <i class="fas fa-mountain text-3xl mb-2"></i>
+                            <h3 class="text-xl font-bold">Mountain Retreat</h3>
+                            <p class="text-sm">Switzerland, 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white px-8 py-3 rounded-full font-medium transition duration-300 transform hover:scale-105">
+                    View More Memories <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letters Section -->
+    <section id="memories" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold font-serif text-pink-700 mb-4">Love Letters</h2>
+            <p class="text-lg text-pink-600">Words from the heart</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Letter 1 -->
+            <div class="love-letter p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 rounded-full bg-pink-200 flex items-center justify-center mr-4">
+                        <i class="fas fa-heart text-pink-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">To My Love</h4>
+                        <p class="text-sm text-pink-500">June 12, 2025</p>
+                    </div>
+                </div>
+                <p class="text-pink-800 mb-6 italic">
+                    "Every moment with you feels like a dream I never want to wake up from. Your smile brightens my darkest days, and your love gives me strength I never knew I had..."
+                </p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-pink-400">Written with love</span>
+                    <button class="text-pink-600 hover:text-pink-800 text-sm font-medium">
+                        Read More <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Letter 2 -->
+            <div class="love-letter p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 rounded-full bg-pink-200 flex items-center justify-center mr-4">
+                        <i class="fas fa-star text-pink-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">My Dearest</h4>
+                        <p class="text-sm text-pink-500">May 25, 2026</p>
+                    </div>
+                </div>
+                <p class="text-pink-800 mb-6 italic">
+                    "On this morning, I find myself thinking not of the gifts under the tree, but of the incredible gift I have in you. You are my greatest blessing..."
+                </p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-pink-400">Written with love</span>
+                    <button class="text-pink-600 hover:text-pink-800 text-sm font-medium">
+                        Read More <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Letter 3 -->
+            <div class="love-letter p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 rounded-full bg-pink-200 flex items-center justify-center mr-4">
+                        <i class="fas fa-moon text-pink-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Goodnight My Love</h4>
+                        <p class="text-sm text-pink-500">July 5, 2025</p>
+                    </div>
+                </div>
+                <p class="text-pink-800 mb-6 italic">
+                    "As I watch you sleep tonight, I'm overwhelmed with gratitude for your presence in my life. Even in silence, your love speaks volumes to my heart..."
+                </p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-pink-400">Written with love</span>
+                    <button class="text-pink-600 hover:text-pink-800 text-sm font-medium">
+                        Read More <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Polaroid Memories -->
+    <section class="py-20 bg-pink-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-serif text-pink-700 mb-4">Polaroid Memories</h2>
+                <p class="text-lg text-pink-600">Little moments, big memories</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" 
+                         alt="Smiling" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Smile</p>
+                </div>
+                <div class="polaroid">
+                    <img src="./coffee dates.jpeg" 
+                         alt="Coffee date" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Coffee Date</p>
+                </div>
+                <div class="polaroid">
+                    <img src="./download (11).jpeg" 
+                         alt="Beach day" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Beach Day</p>
+                </div>
+                <div class="polaroid">
+                    <img src="./Picnic Ideas Creating Perfect Settings for Summer Outings.jpeg" 
+                         alt="Picnic" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Picnic</p>
+                </div>
+                <div class="polaroid">
+                    <img src="./dancing-wedding-air-force-academy.jpeg" 
+                         alt="Laughing" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Laughter</p>
+                </div>
+                <div class="polaroid">
+                    <img src="./download (12).jpeg" 
+                         alt="Together" 
+                         class="w-full h-48 object-cover">
+                    <p class="text-center mt-2 text-sm">Together</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold font-serif text-pink-700 mb-4">Get In Touch</h2>
+            <p class="text-lg text-pink-600">We'd love to hear your love story too</p>
+        </div>
+        
+        <div class="lg:grid lg:grid-cols-2 lg:gap-16">
+            <div class="mb-12 lg:mb-0">
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-pink-700 mb-1">Your Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-pink-300 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition duration-300" placeholder="Micheal & Songotom">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-pink-700 mb-1">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-pink-300 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition duration-300" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-pink-700 mb-1">Subject</label>
+                        <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border border-pink-300 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition duration-300" placeholder="What's this about?">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-pink-700 mb-1">Your Love Story</label>
+                        <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-pink-300 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition duration-300" placeholder="Tell us about your love..."></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                            Send Love <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="bg-pink-50 rounded-xl p-8 h-full">
+                    <h3 class="text-2xl font-bold font-serif text-pink-700 mb-6">Connect With Us</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-pink-100 rounded-lg p-3 mr-4">
+                                <i class="fas fa-map-marker-alt text-pink-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-pink-800 mb-1">Our Location</h4>
+                                <p class="text-pink-600">Odani Green City</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-pink-100 rounded-lg p-3 mr-4">
+                                <i class="fas fa-envelope text-pink-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-pink-800 mb-1">Email Us</h4>
+                                <p class="text-pink-600">Michealsamson902@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-pink-100 rounded-lg p-3 mr-4">
+                                <i class="fas fa-phone-alt text-pink-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-pink-800 mb-1">Call Us</h4>
+                                <p class="text-pink-600">+234 (8148013) LOVE-444</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-medium text-pink-800 mb-4">Follow Our Journey</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center text-pink-700 hover:bg-pink-300 transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center text-pink-700 hover:bg-pink-300 transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center text-pink-700 hover:bg-pink-300 transition duration-300">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center text-pink-700 hover:bg-pink-300 transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pink-800 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold font-serif mb-4">Eternal Love</h3>
+                    <p class="text-pink-200 mb-4">Celebrating love in all its beautiful forms.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-pink-200 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-pink-200 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-pink-200 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-pink-200 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#story" class="text-pink-200 hover:text-white transition duration-300">Our Story</a></li>
+                        <li><a href="#gallery" class="text-pink-200 hover:text-white transition duration-300">Gallery</a></li>
+                        <li><a href="#memories" class="text-pink-200 hover:text-white transition duration-300">Memories</a></li>
+                        <li><a href="#contact" class="text-pink-200 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-pink-200 hover:text-white transition duration-300">Love Tips</a></li>
+                        <li><a href="#" class="text-pink-200 hover:text-white transition duration-300">Date Ideas</a></li>
+                        <li><a href="#" class="text-pink-200 hover:text-white transition duration-300">Romantic Getaways</a></li>
+                        <li><a href="#" class="text-pink-200 hover:text-white transition duration-300">Gift Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="text-pink-200 mb-4">Subscribe to get love tips and romantic ideas</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-pink-900">
+                        <button type="submit" class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-r-lg transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-pink-700 mt-12 pt-8 text-center text-pink-300 text-sm">
+                <p>&copy; 2025 Eternal Love. All rights reserved. Made with <i class="fas fa-heart text-red-400"></i> for couples in love.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-pink-600 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const nextAnniversary = new Date(now.getFullYear(), 1, 14); // February 14th
+            
+            if (now > nextAnniversary) {
+                nextAnniversary.setFullYear(nextAnniversary.getFullYear() + 1);
+            }
+            
+            const diff = nextAnniversary - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                heart.className = 'text-pink-300 opacity-30 text-xl absolute';
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random animation duration and delay
+                const duration = 5 + Math.random() * 10;
+                const delay = Math.random() * 5;
+                const size = 0.5 + Math.random() * 1.5;
+                
+                heart.style.left = `${posX}%`;
+                heart.style.top = `${posY}%`;
+                heart.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite`;
+                heart.style.fontSize = `${size}rem`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Create falling rose petals
+        function createPetals() {
+            const container = document.getElementById('hearts-container');
+            const petalCount = 15;
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'rose-petal';
+                
+                // Random size
+                const size = 10 + Math.random() * 20;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                
+                // Random animation duration and delay
+                const duration = 5 + Math.random() * 10;
+                const delay = Math.random() * 5;
+                
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${posX}%`;
+                petal.style.animationDuration = `${duration}s`;
+                petal.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(petal);
+            }
+        }
+        
+        // Initialize effects
+        window.addEventListener('load', function() {
+            createHearts();
+            createPetals();
+        });
+    </script>
+</body>
+</html>
